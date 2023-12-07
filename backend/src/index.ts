@@ -1,0 +1,27 @@
+import express from "express";
+import authRoutes from "../routes/auth.routes";
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+import { sequelize } from "./db";
+
+app.listen(8080, () => {
+  console.log("connection established..!");
+});
+
+app.use(express.json());
+
+//? routes
+app.use("/users", authRoutes);
+app.use("/register", authRoutes);
+
+sequelize
+  .sync()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Unable to connect to the database:", error);
+  });

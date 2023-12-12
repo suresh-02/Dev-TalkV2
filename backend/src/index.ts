@@ -14,6 +14,7 @@ app.use(express.json());
 //? routes
 app.use("/users", authRoutes);
 app.use("/register", authRoutes);
+app.use("/login", authRoutes);
 
 sequelize
   .sync()

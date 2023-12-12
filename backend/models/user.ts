@@ -7,6 +7,7 @@ export class User extends Model {
   public password!: string;
   public email!: string;
   public image!: string;
+  private _id: any;
 }
 
 User.init(

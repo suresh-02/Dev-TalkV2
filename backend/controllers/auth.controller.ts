@@ -7,31 +7,26 @@ const userController = {
   //! To register a new user.
   async registerUser(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
+      const { username, password, email, image } = req.body; //? getting the  user entering details
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-      const user = await User.findOne({ where: { email } });
-
-      if (!user) {
+      // Check if the user already exists
+      const existingUser = await User.findOne({ where: { email } });
+      if (existingUser) {
         return res
-          .status(401)
-          .json({ message: "Invalid username or password" });
+          .status(400)
+          .json({ error: "User already exists in database" });
       }
 
-      const isValidPassword = await bcrypt.compare(password, user.password);
+      // Create a new user
+      const newUser = await User.create({
+        username,
+        password: hashedPassword,
+        email,
+        image,
+      });
 
-      if (!isValidPassword) {
-        return res
-          .status(401)
-          .json({ message: "Invalid username or password" });
-      }
-
-      const token = jwt.sign(
-        { userId: user.id, email: user.email },
-        "Secret-Key", // Replace with your secret key
-        { expiresIn: "1h" }
-      );
-
-      res.status(200).json({ token });
+      return res.status(201).json(newUser);
     } catch (error) {
       console.error("Error registering user:", error);
       return res.status(500).json({ error: "Failed to register user" });

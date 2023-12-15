@@ -20,10 +20,10 @@ const authController = {
 
       // Create a new user
       const newUser = await User.create({
-        username,
+        username: username,
         password: hashedPassword,
-        email,
-        image,
+        email: email,
+        image: password,
       });
 
       return res.status(201).json(newUser);
@@ -41,7 +41,10 @@ const authController = {
     if (!userAvaialble)
       return res.status(400).json({ message: "The user does not exist" });
 
-    const isPasswordMatch = bcrypt.compare(password, userAvaialble.password);
+    const isPasswordMatch = await bcrypt.compare(
+      password,
+      userAvaialble.password
+    );
     if (!isPasswordMatch)
       return res.status(400).json({ message: "The password does not match" });
 

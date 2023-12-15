@@ -31,7 +31,7 @@ User.init(
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {

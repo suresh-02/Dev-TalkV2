@@ -3,12 +3,12 @@ import { User } from "../models/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const userController = {
+const authController = {
   //! To register a new user.
   async registerUser(req: Request, res: Response) {
     try {
       const { username, password, email, image } = req.body; //? getting the  user entering details
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10); //?saved as the hashed password
 
       // Check if the user already exists
       const existingUser = await User.findOne({ where: { email } });
@@ -49,4 +49,4 @@ const userController = {
   },
 };
 
-export default userController;
+export default authController;

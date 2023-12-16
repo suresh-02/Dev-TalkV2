@@ -3,13 +3,6 @@ import logo from "../assets/logo.png";
 import axios from "axios";
 import { useState } from "react";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
 type FieldType = {
   email?: string;
   username?: string;
@@ -18,25 +11,26 @@ type FieldType = {
 };
 
 const Register = () => {
-  const [values, setValues] = useState({
-    username: " ",
-    email: " ",
-    password: " ",
-  });
+  const [, setLoading] = useState(false); //! loading useState
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:3000/users/register", values)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  //! onSubmit function
+  const onFinish = async (values: FieldType) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users/register",
+        values
+      );
+      console.log("User Registration successful:", response.data);
+    } catch (error) {
+      console.error("User Registration failed:", error);
+    } finally {
+      setLoading(false);
+    }
   };
-  console.log(values);
 
-  const handleChenge = (e: any) => {
-    let current = { [e.target.name]: e.target.value };
-    console.log(current);
-    setValues((prev) => ({ ...prev, ...current }));
+  const onFinishFailed = async (error: any) => {
+    console.log("Failed:", error);
   };
 
   return (
@@ -61,7 +55,7 @@ const Register = () => {
           style={{ width: "400px" }}
           rules={[{ required: true, message: "Please input your Email!" }]}
         >
-          <Input onChange={handleChenge} />
+          <Input />
         </Form.Item>
         <Form.Item<FieldType>
           label="Username"
@@ -69,7 +63,7 @@ const Register = () => {
           style={{ width: "400px" }}
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input onChange={handleChenge} />
+          <Input />
         </Form.Item>
         <Form.Item<FieldType>
           label="Password"
@@ -77,14 +71,13 @@ const Register = () => {
           style={{ width: "400px" }}
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password onChange={handleChenge} />
+          <Input.Password />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 10 }}>
           <Button
             style={{ background: "#AC26ED", color: "white", width: "190px" }}
             htmlType="submit"
-            onClick={handleSubmit}
           >
             Submit
           </Button>

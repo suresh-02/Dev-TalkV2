@@ -33,10 +33,10 @@ const Login = () => {
         autoComplete="off"
       >
         <Form.Item<FieldType>
-          label="Username"
-          name="username"
+          label="Email"
+          name="email"
           style={{ width: "400px" }}
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Please input your email!" }]}
         >
           <Input />
         </Form.Item>
@@ -58,6 +58,9 @@ const Login = () => {
           </Button>
         </Form.Item>
       </Form>
+      <p>
+        New to Dev-Talk? <a>register now</a>
+      </p>
     </div>
   );
 };

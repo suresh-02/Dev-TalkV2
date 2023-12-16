@@ -11,7 +11,7 @@ type FieldType = {
 };
 
 const Register = () => {
-  const [, setLoading] = useState(false); //! loading useState
+  const [, setLoading] = useState(false); //! loading useState.
 
   //! onSubmit function
   const onFinish = async (values: FieldType) => {

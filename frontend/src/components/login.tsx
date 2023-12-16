@@ -16,6 +16,7 @@ type FieldType = {
 };
 
 const Login = () => {
+  // const [login, setLogin] = useState({ username: "", password: "" });
   return (
     <div className="flex flex-col gap-y-4  mt-[200px] justify-center items-center">
       <img className="w-[380px]" src={logo} />

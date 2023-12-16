@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import logo from "../assets/logo.png";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type FieldType = {
   email?: string;
@@ -13,6 +14,8 @@ type FieldType = {
 const Register = () => {
   const [, setLoading] = useState(false); //! loading useState.
 
+  const navigate = useNavigate(); //! useNavigate hook.
+
   //! onSubmit function
   const onFinish = async (values: FieldType) => {
     setLoading(true);
@@ -22,6 +25,7 @@ const Register = () => {
         values
       );
       console.log("User Registration successful:", response.data);
+      navigate("/login");
     } catch (error) {
       console.error("User Registration failed:", error);
     } finally {
@@ -37,7 +41,9 @@ const Register = () => {
     <div className="flex flex-col gap-y-4  mt-[200px] justify-center items-center">
       <img className="w-[380px]" src={logo} />
       <h2 className=" text-center  pb-[10px] text-2xl font-bold  tracking-tight text-gray-900">
-        Register your account
+        Register your account,
+        <br />
+        contribue to the community
       </h2>
       <Form
         name="basic"

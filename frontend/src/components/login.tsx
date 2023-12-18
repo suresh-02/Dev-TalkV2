@@ -1,13 +1,8 @@
 import { Button, Form, Input } from "antd";
 import logo from "../assets/logo.png";
+import { useState } from "react";
+import axios from "axios";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
 type FieldType = {
   email?: string;
   username?: string;
@@ -16,7 +11,27 @@ type FieldType = {
 };
 
 const Login = () => {
-  // const [login, setLogin] = useState({ username: "", password: "" });
+  const [login, setLogin] = useState({ username: "", password: "" });
+  //! to handle change
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLogin({ ...login, [event.target.name]: event.target.value });
+  };
+  //! to handle submit
+  const onFinish = async (values: FieldType) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users/login",
+        values
+      );
+      console.log("User logged in :", response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div className="flex flex-col gap-y-4  mt-[200px] justify-center items-center">
       <img className="w-[380px]" src={logo} />
@@ -39,7 +54,7 @@ const Login = () => {
           style={{ width: "400px" }}
           rules={[{ required: true, message: "Please input your email!" }]}
         >
-          <Input />
+          <Input onChange={handleChange} />
         </Form.Item>
         <Form.Item<FieldType>
           label="Password"
@@ -47,7 +62,7 @@ const Login = () => {
           style={{ width: "400px" }}
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password />
+          <Input.Password onChange={handleChange} />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 10 }}>

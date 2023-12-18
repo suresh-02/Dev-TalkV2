@@ -19,6 +19,7 @@ const Register = () => {
   //! onSubmit function
   const onFinish = async (values: FieldType) => {
     setLoading(true);
+
     try {
       const response = await axios.post(
         "http://localhost:3000/users/register",

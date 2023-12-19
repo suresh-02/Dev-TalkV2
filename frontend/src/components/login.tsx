@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import logo from "../assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 type FieldType = {
   email?: string;
@@ -16,6 +17,7 @@ const Login = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin({ ...login, [event.target.name]: event.target.value });
   };
+  const navigate = useNavigate();
   //! to handle submit
   const onFinish = async (values: FieldType) => {
     try {
@@ -24,6 +26,7 @@ const Login = () => {
         values
       );
       console.log("User logged in :", response.data);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

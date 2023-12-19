@@ -1,3 +1,5 @@
+import NavBar from "../fixedComponents/NavBar";
+
 const Home = () => {
   const posts = [
     {
@@ -28,6 +30,7 @@ const Home = () => {
   ];
   return (
     <div>
+      <NavBar />
       {posts.map((post) => (
         <h1 className="text-4xl">{post.name}</h1>
       ))}

@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import logo from "../assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
@@ -12,6 +12,9 @@ type FieldType = {
 };
 
 const Login = () => {
+  //! to display the message
+
+  //!to handle login credentials
   const [login, setLogin] = useState({ username: "", password: "" });
   //! to handle change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +29,10 @@ const Login = () => {
         values
       );
       console.log("User logged in :", response.data);
+      message.success("User login sucessfull");
       navigate("/");
     } catch (error) {
+      message.error("User login unsucessfull");
       console.log(error);
     }
   };

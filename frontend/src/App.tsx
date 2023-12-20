@@ -6,7 +6,7 @@ interface Todo {
 import { useEffect, useState } from "react";
 
 import "./App.css";
-import Login from "./components/login";
+import Login from "./components/Login.1";
 
 function App() {
   const [todo, setTodo] = useState([]);

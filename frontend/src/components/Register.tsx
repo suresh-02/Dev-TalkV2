@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import logo from "../assets/logo.png";
 import axios from "axios";
 import { useState } from "react";
@@ -26,9 +26,11 @@ const Register = () => {
         values
       );
       console.log("User Registration successful:", response.data);
+      message.success("User registered sucessfully");
       navigate("/login");
     } catch (error) {
       console.error("User Registration failed:", error);
+      message.error("Unable to register sucessfully");
     } finally {
       setLoading(false);
     }

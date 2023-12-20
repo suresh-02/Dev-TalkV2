@@ -29,6 +29,7 @@ const Login = () => {
         values
       );
       console.log("User logged in :", response.data);
+
       message.success("User login sucessfull");
       navigate("/");
     } catch (error) {

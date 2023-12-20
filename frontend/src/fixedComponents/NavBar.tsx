@@ -36,13 +36,7 @@ const NavBar = () => {
           <Link className="link" to="/register">
             {/* <h3>{currentUser?.username}</h3> */}
           </Link>
-          <Link className="link" to="/login">
-            {/* {currentUser ? (
-              <h3>Logout</h3>
-            ) : (
-              <Link className="link" to="/login" onClick={logout} />
-            )} */}
-          </Link>
+          <Link className="link" to="/login"></Link>
         </div>
       </div>
     </div>

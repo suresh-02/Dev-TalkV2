@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { createNotification } from "../services";
 
 type FieldType = {
   email?: string;
@@ -28,12 +29,16 @@ const Login = () => {
         "http://localhost:3000/users/login",
         values
       );
+      const token = response.data.token;
+      localStorage.getItem(token);
+      localStorage.setItem(token, "token");
       console.log("User logged in :", response.data);
 
       message.success("User login sucessfull");
       navigate("/");
     } catch (error) {
       message.error("User login unsucessfull");
+      // createNotification("error");
       console.log(error);
     }
   };

@@ -3,7 +3,6 @@ import logo from "../assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { createNotification } from "../services";
 
 type FieldType = {
   email?: string;
@@ -46,7 +45,7 @@ const Login = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-  return (
+  return -(
     <div className="flex flex-col gap-y-4  mt-[200px] justify-center items-center">
       <img className="w-[380px]" src={logo} />
       <h2 className=" text-center  pb-[10px] text-2xl font-bold  tracking-tight text-gray-900">

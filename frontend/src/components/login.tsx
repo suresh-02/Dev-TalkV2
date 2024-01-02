@@ -8,19 +8,19 @@ type FieldType = {
   email?: string;
   username?: string;
   password?: string;
-  remember?: string;
 };
 
 const Login = () => {
-  //! to display the message
-
   //!to handle login credentials
   const [login, setLogin] = useState({ username: "", password: "" });
+
   //! to handle change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin({ ...login, [event.target.name]: event.target.value });
   };
+
   const navigate = useNavigate();
+
   //! to handle submit
   const onFinish = async (values: FieldType) => {
     try {
@@ -28,24 +28,16 @@ const Login = () => {
         "http://localhost:3000/users/login",
         values
       );
-      const token = response.data.token;
-      localStorage.getItem(token);
-      localStorage.setItem(token, "token");
       console.log("User logged in :", response.data);
-
       message.success("User login sucessfull");
       navigate("/");
     } catch (error) {
       message.error("User login unsucessfull");
-      // createNotification("error");
       console.log(error);
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-  return -(
+  return (
     <div className="flex flex-col gap-y-4  mt-[200px] justify-center items-center">
       <img className="w-[380px]" src={logo} />
       <h2 className=" text-center  pb-[10px] text-2xl font-bold  tracking-tight text-gray-900">
@@ -58,7 +50,6 @@ const Login = () => {
         style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item<FieldType>
